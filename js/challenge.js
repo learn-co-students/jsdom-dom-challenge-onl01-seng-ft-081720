@@ -19,8 +19,8 @@ document.querySelector("#pause").addEventListener("click", () => {
     }
 });
 
-document.querySelector("#minus").addEventListener("click", () => {
-    reduceTimer()
+document.querySelector("#plus").addEventListener("click", () => {
+    increaseTimer()
 });
 
 document.querySelector("#heart").addEventListener("click", () => {
