@@ -8,74 +8,75 @@
 // When 'resume' is clicked, it should restart the counter and re-enable the buttons.
 // As a user, I can leave comments on my gameplay, such as: "Wow, what a fun game this is."
 
+document.addEventListener('DOMContentLoaded', function() {
 
-let counter = parseInt(document.getElementById("counter").innerText)
-const likes = {}
+    let likes = {}
 
-let intervalID = window.setInterval(function(){
-    counter += 1
-    document.getElementById("counter").innerText = counter
-}, 1000);
+    let counter = parseInt(document.getElementById("counter").innerText)
+    
+
+    let intervalID = window.setInterval(function(){
+        counter += 1
+        document.getElementById("counter").innerText = counter
+    }, 1000);
 
 
-function pauseAndResumeToggle() {
-    if (pauseBtn.innerText == "pause") {
-        clearInterval(intervalID)
-        
-        document.querySelectorAll("button").forEach((el) => {
-            el.id !== "pause" ? el.disabled = true : ''
-        });
+    function pauseAndResumeToggle() {
+        if (pauseBtn.innerText == "pause") {
+            clearInterval(intervalID)
+            
+            document.querySelectorAll("button").forEach((el) => {
+                el.id !== "pause" ? el.disabled = true : ''
+            });
 
-        pauseBtn.innerText = "resume"
+            pauseBtn.innerText = "resume"
 
-    } else {
-        
-        pauseBtn.innerText = "pause"
-        document.querySelectorAll("button").forEach((el) => {el.disabled = false})
-        counter = 0
-        intervalID = window.setInterval(function(){
-            counter += 1
-            document.getElementById("counter").innerText = counter
-        }, 1000);
+        } else {
+            
+            pauseBtn.innerText = "pause"
+            document.querySelectorAll("button").forEach((el) => {el.disabled = false})
+            counter = 0
+            intervalID = window.setInterval(function(){
+                counter += 1
+                document.getElementById("counter").innerText = counter
+            }, 1000);
+        }
     }
-}
-
-function addLikeToNumber() {
-    // const likes = {num:}
-    // Likes hasCurrentNumber ? addLikeToNumber
-    // Else addCurrentNumber + firstLikeToOBject
-    const numberExists = likes[counter]
-    if (!numberExists) {
-        likes[counter] = 1
-    } else if (numberExists) {
-        likes[counter] = likes[counter] +1 
-    }
-    console.log(numberExists, "NumberEXists")
-    console.log(likes, "likes object")
 
     
-}
+    likeBtn = document.getElementById("heart")
+    likeBtn.addEventListener("click", addLikeToNumber)
+    
+    function addLikeToNumber() {
+        let numberExists = likes[counter]
+        if (!numberExists) {
+            likes[counter] = 1
+        } else if (numberExists) {
+            console.log(likes)
+            likes[counter] += 1 
+        }
+        const li = document.createElement("li")
+        li.innerText = `Number ${counter}, has ${likes[counter]} likes.`
+        document.querySelector("ul.likes").appendChild(li)
+    }
 
-likeBtn = document.getElementById("heart")
-likeBtn.addEventListener("click", addLikeToNumber(counter))
 
 
+    pauseBtn = document.getElementById("pause")
+    pauseBtn.addEventListener("click", pauseAndResumeToggle)
 
+    plustBtn = document.getElementById("plus")
+    plustBtn.addEventListener("click", function() {
+        counter += 1
+        document.getElementById("counter").innerText = counter
+        console.log(counter)
+    })
+    minustBtn = document.getElementById("minus")
+    minustBtn.addEventListener("click", function() {
+        counter -= 1
+        document.getElementById("counter").innerText = counter
+        console.log(counter)
+    })
 
-pauseBtn = document.getElementById("pause")
-pauseBtn.addEventListener("click", pauseAndResumeToggle)
-
-plustBtn = document.getElementById("plus")
-plustBtn.addEventListener("click", function() {
-    counter += 1
-    document.getElementById("counter").innerText = counter
-    console.log(counter)
 })
-minustBtn = document.getElementById("minus")
-minustBtn.addEventListener("click", function() {
-    counter -= 1
-    document.getElementById("counter").innerText = counter
-    console.log(counter)
-})
-
 
