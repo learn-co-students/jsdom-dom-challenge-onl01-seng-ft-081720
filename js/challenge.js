@@ -11,7 +11,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     let likes = {}
-
     let counter = parseInt(document.getElementById("counter").innerText)
     
 
@@ -21,18 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1000);
 
 
+
     function pauseAndResumeToggle() {
         if (pauseBtn.innerText == "pause") {
             clearInterval(intervalID)
-            
             document.querySelectorAll("button").forEach((el) => {
                 el.id !== "pause" ? el.disabled = true : ''
             });
-
             pauseBtn.innerText = "resume"
-
         } else {
-            
             pauseBtn.innerText = "pause"
             document.querySelectorAll("button").forEach((el) => {el.disabled = false})
             counter = 0
@@ -43,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    
     likeBtn = document.getElementById("heart")
     likeBtn.addEventListener("click", addLikeToNumber)
     
@@ -60,8 +55,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector("ul.likes").appendChild(li)
     }
 
-
-
+   
+    let submit = document.getElementById("submit")
+    submit.addEventListener("click", function(event){
+        event.preventDefault()
+        let commentList = document.getElementById("list")
+        let p = document.createElement("p")
+        p.innerText = document.getElementById("comment-input").value
+        commentList.appendChild(p)
+        document.getElementById("comment-input").value = ''
+    });
     pauseBtn = document.getElementById("pause")
     pauseBtn.addEventListener("click", pauseAndResumeToggle)
 
@@ -70,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         counter += 1
         document.getElementById("counter").innerText = counter
         console.log(counter)
+
     })
     minustBtn = document.getElementById("minus")
     minustBtn.addEventListener("click", function() {
@@ -78,5 +82,5 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(counter)
     })
 
-})
+});
 
